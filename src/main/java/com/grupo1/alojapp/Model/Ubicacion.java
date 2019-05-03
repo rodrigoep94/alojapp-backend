@@ -1,5 +1,7 @@
 package com.grupo1.alojapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,10 +15,19 @@ public class Ubicacion implements Serializable {
     private String localidad;
     private String direccion;
 
+    public Ubicacion(){}
+
     public Ubicacion(String provincia,String localidad,String direccion){
         this.provincia = provincia;
         this.localidad = localidad;
         this.direccion = direccion;
+    }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getProvincia() {

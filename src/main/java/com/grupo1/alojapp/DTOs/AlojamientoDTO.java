@@ -1,33 +1,23 @@
-package com.grupo1.alojapp.Model;
+package com.grupo1.alojapp.DTOs;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import com.grupo1.alojapp.Model.TIPOALOJAMIENTO;
 
-@Entity
-@Table(name = "Alojamiento")
-public class Alojamiento implements Serializable {
+public class AlojamientoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
     private String nombre;
-    @NotNull
     private String descripcion;
     private TIPOALOJAMIENTO tipoalojamiento;
     private Float categoria;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Ubicacion ubicacion;
+    private UbicacionDTO ubicacion;
 
-    public Alojamiento(){}
-
-    public Alojamiento(String nombre, String descripcion){
-        this.setNombre(nombre);
-        this.setDescripcion(descripcion);
+    public Long getId() {
+        return id;
     }
 
-    public Long getId(){ return this.id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -61,15 +51,11 @@ public class Alojamiento implements Serializable {
         this.categoria = categoria;
     }
 
-    public Ubicacion getUbicacion() {
+    public UbicacionDTO getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
+    public void setUbicacion(UbicacionDTO ubicacion) {
         this.ubicacion = ubicacion;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

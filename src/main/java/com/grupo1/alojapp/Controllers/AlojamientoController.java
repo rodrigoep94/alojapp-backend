@@ -1,10 +1,12 @@
 package com.grupo1.alojapp.Controllers;
 
+import com.grupo1.alojapp.DTOs.AlojamientoDTO;
 import com.grupo1.alojapp.Model.Ubicacion;
 import com.grupo1.alojapp.Services.AlojamientoService;
 import com.grupo1.alojapp.Model.Alojamiento;
 import com.grupo1.alojapp.Services.UbicacionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,26 +15,25 @@ public class AlojamientoController {
 
     @Autowired
     private AlojamientoService alojamientoService;
-    @Autowired
-    private UbicacionService ubicacionService;
 
-    @GetMapping("alojamiento/get")
+    @GetMapping("alojamiento/get/{id}")
     @ResponseBody
-    public Alojamiento getAlojamiento(@RequestParam(name="id") Long id){
-        return alojamientoService.getById(id);
+    public ResponseEntity<AlojamientoDTO> getAlojamiento(@PathVariable Long id){
+        AlojamientoDTO alojamientoDTO = alojamientoService.getById(id);
+        return ResponseEntity.ok(alojamientoDTO);
     }
 
     @PostMapping("alojamiento/create")
     @ResponseBody
-    public Alojamiento createAlojamiento(@RequestBody String nombre, @RequestBody String descripcion){
-        return alojamientoService.InitializeAlojamiento(nombre,descripcion);
+    public ResponseEntity<AlojamientoDTO> saveOrUpdateAlojamiento(@RequestBody AlojamientoDTO alojamientoDTO){
+        alojamientoService.saveAlojamientoFromDTO(alojamientoDTO);
+        return ResponseEntity.ok(alojamientoDTO);
     }
 
-    @PostMapping("alojamiento/addUbicacion")
+    @PostMapping("alojamiento/update")
     @ResponseBody
-    public Alojamiento createAlojamiento(@RequestParam(name="idAlojamiento") Long idAlojamiento,@RequestBody String provincia, @RequestBody String localidad, @RequestBody String direccion){
-        Ubicacion ubicacion = ubicacionService.InitializeUbicacion(provincia,localidad,direccion);
-        Alojamiento alojamiento = getAlojamiento(idAlojamiento);
-        return alojamientoService.AgregarUbicacion(alojamiento,ubicacion);
+    public ResponseEntity<AlojamientoDTO> updateAlojamiento(@RequestBody AlojamientoDTO alojamientoDTO){
+        return saveOrUpdateAlojamiento(alojamientoDTO);
     }
+
 }
