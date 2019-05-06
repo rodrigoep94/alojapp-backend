@@ -2,6 +2,7 @@ package com.grupo1.alojapp.Services;
 
 import com.grupo1.alojapp.Assemblies.AlojamientoAssembly;
 import com.grupo1.alojapp.DTOs.AlojamientoDTO;
+import com.grupo1.alojapp.Exceptions.AlojamientoEliminadoException;
 import com.grupo1.alojapp.Model.Alojamiento;
 import com.grupo1.alojapp.Repositories.AlojamientoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,10 @@ public class AlojamientoService {
         alojamientoRepository.save(alojamiento);
     }
 
-    public AlojamientoDTO getById(Long id){
+    public AlojamientoDTO getById(Long id) throws AlojamientoEliminadoException{
         Alojamiento alojamiento = alojamientoRepository.getOne(id);
+        if(alojamiento.isEliminado())
+            throw new AlojamientoEliminadoException("El alojamiento de id:"+ id+" se encuentra eliminado");
         return alojamientoAssembly.map(alojamiento, AlojamientoDTO.class);
     }
 

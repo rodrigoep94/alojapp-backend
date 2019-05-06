@@ -1,6 +1,7 @@
 package com.grupo1.alojapp.Controllers;
 
 import com.grupo1.alojapp.DTOs.AlojamientoDTO;
+import com.grupo1.alojapp.Exceptions.AlojamientoEliminadoException;
 import com.grupo1.alojapp.Model.Ubicacion;
 import com.grupo1.alojapp.Services.AlojamientoService;
 import com.grupo1.alojapp.Model.Alojamiento;
@@ -27,7 +28,7 @@ public class AlojamientoController {
 
     @GetMapping("alojamiento/get/{id}")
     @ResponseBody
-    public ResponseEntity<AlojamientoDTO> getAlojamiento(@PathVariable Long id){
+    public ResponseEntity<AlojamientoDTO> getAlojamiento(@PathVariable Long id) throws AlojamientoEliminadoException {
         AlojamientoDTO alojamientoDTO = alojamientoService.getById(id);
         return ResponseEntity.ok(alojamientoDTO);
     }
