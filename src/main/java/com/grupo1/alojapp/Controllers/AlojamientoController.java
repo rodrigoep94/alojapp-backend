@@ -10,11 +10,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class AlojamientoController {
 
     @Autowired
     private AlojamientoService alojamientoService;
+
+    @GetMapping("alojamiento/get")
+    @ResponseBody
+    public ResponseEntity<List<AlojamientoDTO>> getAlojamientosVigentes(){
+        List<AlojamientoDTO> alojamientosDTO = alojamientoService.getAllVigentes();
+        return ResponseEntity.ok(alojamientosDTO);
+    }
 
     @GetMapping("alojamiento/get/{id}")
     @ResponseBody
@@ -34,6 +43,12 @@ public class AlojamientoController {
     @ResponseBody
     public ResponseEntity<AlojamientoDTO> updateAlojamiento(@RequestBody AlojamientoDTO alojamientoDTO){
         return saveOrUpdateAlojamiento(alojamientoDTO);
+    }
+
+    @PutMapping("alojamiento/delete/{id}")
+    @ResponseBody
+    public void deleteAlojamiento(@PathVariable Long id){
+        alojamientoService.deleteAlojamientoById(id);
     }
 
 }

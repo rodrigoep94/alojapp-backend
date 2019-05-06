@@ -1,5 +1,7 @@
 package com.grupo1.alojapp.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,12 +19,18 @@ public class Alojamiento implements Serializable {
     private String descripcion;
     private TIPOALOJAMIENTO tipoalojamiento;
     private Float categoria;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
     private Ubicacion ubicacion;
+    @NotNull
+    private boolean eliminado;
 
-    public Alojamiento(){}
+    public Alojamiento(){
+        eliminado = false;
+    }
 
     public Alojamiento(String nombre, String descripcion){
+        this.eliminado = false;
         this.setNombre(nombre);
         this.setDescripcion(descripcion);
     }
@@ -71,5 +79,13 @@ public class Alojamiento implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
 }
