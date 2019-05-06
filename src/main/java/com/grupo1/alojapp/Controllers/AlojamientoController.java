@@ -48,7 +48,7 @@ public class AlojamientoController {
 
     @PutMapping("alojamiento/delete/{id}")
     @ResponseBody
-    public void deleteAlojamiento(@PathVariable Long id){
+    public void deleteAlojamiento(@PathVariable Long id) throws AlojamientoEliminadoException{
         alojamientoService.deleteAlojamientoById(id);
     }
 
