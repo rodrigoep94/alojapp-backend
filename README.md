@@ -3,4 +3,4 @@
 Servicio de almacenamiento de alojamientos
 
 Para más información consulte  
-[WIKI](https://github.com/JuanManuelVallejos/OR.MAT.INS/wiki)
+[WIKI](https://github.com/JuanManuelVallejos/alojapp-backend/wiki)
