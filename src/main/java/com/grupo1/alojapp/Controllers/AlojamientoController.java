@@ -20,34 +20,34 @@ public class AlojamientoController {
     @Autowired
     private AlojamientoService alojamientoService;
 
-    @GetMapping("alojamiento/get")
+    @GetMapping("alojamiento")
     @ResponseBody
     public ResponseEntity<List<AlojamientoDTO>> getAlojamientosVigentes(){
         List<AlojamientoDTO> alojamientosDTO = alojamientoService.getAllVigentes();
         return ResponseEntity.ok(alojamientosDTO);
     }
 
-    @GetMapping("alojamiento/get/{id}")
+    @GetMapping("alojamiento/{id}")
     @ResponseBody
     public ResponseEntity<AlojamientoDTO> getAlojamiento(@PathVariable Long id) throws AlojamientoEliminadoException {
         AlojamientoDTO alojamientoDTO = alojamientoService.getById(id);
         return ResponseEntity.ok(alojamientoDTO);
     }
 
-    @PostMapping("alojamiento/create")
+    @PostMapping("alojamiento")
     @ResponseBody
     public ResponseEntity<AlojamientoDTO> saveOrUpdateAlojamiento(@RequestBody AlojamientoDTO alojamientoDTO){
         alojamientoService.saveAlojamientoFromDTO(alojamientoDTO);
         return ResponseEntity.ok(alojamientoDTO);
     }
 
-    @PostMapping("alojamiento/update")
+    @PutMapping("alojamiento")
     @ResponseBody
     public ResponseEntity<AlojamientoDTO> updateAlojamiento(@RequestBody AlojamientoDTO alojamientoDTO){
         return saveOrUpdateAlojamiento(alojamientoDTO);
     }
 
-    @PutMapping("alojamiento/delete/{id}")
+    @DeleteMapping("alojamiento/{id}")
     @ResponseBody
     public void deleteAlojamiento(@PathVariable Long id) throws AlojamientoEliminadoException{
         alojamientoService.deleteAlojamientoById(id);
